@@ -34,7 +34,7 @@ const SignUp = (props) => {
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     const user = userCredential.user;
-                    dispatch(setUserCredentials({ email: user.email, password: password }))
+                    dispatch(setUserCredentials({ email: user.email, password: password, userId: user.uid, isAuth: true  }))
                     ;
                     props.navigation.replace('Todo');
                 })
