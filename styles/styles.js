@@ -64,6 +64,19 @@ const styles = StyleSheet.create({
         letterSpacing: 0.25,
         color: '#fff',
     },
+    todoItem: {
+        backgroundColor: '#F38586',
+        padding: 20,
+        marginVertical: 8,
+        borderRadius: 10,
+    },
+    todoTitle: {
+        fontSize: 24,
+        fontWeight: 'bold',
+    },
+    todoText: {
+        fontSize: 18,
+    },
 
 });
 

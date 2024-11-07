@@ -1,34 +1,59 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Pressable, Button } from 'react-native';
 import { useSelector } from 'react-redux';
+import { firestore } from '../firebaseConfig';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import styles from '../styles/styles';
 
 const Todo = () => {
-  const [todos, setTodos] = useState([
-    { id: '1', title: 'Buy groceries' },
-    { id: '2', title: 'Walk the dog' },
-    { id: '3', title: 'Do laundry' },
-  ]);
-
+  const [todos, setTodos] = useState([]);
   const user = useSelector((state) => state.user);
 
-
   const renderItem = ({ item }) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{item.title}</Text>
-    </View>
+    <Pressable style={styles.todoItem}>
+      <View style={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}>
+        <View>
+
+          <Text style={styles.todoTitle}>{item.title}</Text>
+          <Text style={styles.todoText}>{item.text}</Text>
+
+        </View>
+      </View>
+    </Pressable>
   );
 
-  useEffect(() => {
-    // Fetch todos from the server
 
-    alert(user.isAuth)
-    // setTodos(response.data);
+  const todoRef = query(collection(firestore, 'todos'), where('userId', '==', user.userId));
+
+  const subscriber = onSnapshot(todoRef, {
+    next: (snapshot) => {
+      const todos = [];
+      snapshot.docs.forEach((doc) => {
+        todos.push({
+          id: doc.id,
+          ...doc.data()
+        });
+      });
+  
+      setTodos(todos);
+    }
+  });
+
+
+  useEffect(() => {
+
+   
+    return () => subscriber();
 
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={{ paddingTop: 50, ...styles.container }}>
+      <Text style={styles.title}>My Todos</Text>
       <FlatList
         data={todos}
         renderItem={renderItem}
