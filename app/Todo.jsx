@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Pressable, Button } from 'react-native';
+import { View, Text, FlatList, Pressable } from 'react-native';
 import { useSelector } from 'react-redux';
 import { firestore } from '../firebaseConfig';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';

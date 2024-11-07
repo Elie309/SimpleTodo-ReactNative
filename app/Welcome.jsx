@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, Button, Pressable } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import image from './../assets/logo-nobg.png';
 import styles from '../styles/styles';
 import { useDispatch, useSelector } from 'react-redux';

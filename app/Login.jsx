@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Pressable } from 'react-native';
+import { View, Text, TextInput} from 'react-native';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
 import { setUserCredentials } from '../store/userSlice';
